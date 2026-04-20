@@ -2,13 +2,18 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "8ef0b026-1a75-4afc-bf4c-91f5153be554"
   },
   "newProjectRoot": "projects",
   "projects": {
     "task-manager": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+          "@schematics/angular:component": {
+            "skipTests": true
+          }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
