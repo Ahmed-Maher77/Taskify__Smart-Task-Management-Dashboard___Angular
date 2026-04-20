@@ -1,59 +1,90 @@
-# TaskManager
+# Taskify - Smart Task Management Dashboard - Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+A focused task workspace for capturing tasks, tracking progress through clear status views, and acting quickly via inline edits, completion controls, session timing, and contextual feedback—built with Angular standalone components.
 
-## Development server
+## Overview
 
-To start a local development server, run:
+Taskify helps users organize daily work inside a single dashboard flow:
+- Add new tasks with key details (title, description, category, priority, due date)
+- View tasks by status (`All`, `Done`, `In Progress`)
+- Update, complete, or remove tasks in place
+- Track session time from the header timer controls
+- Receive contextual tab-switch feedback via toast notifications
 
-```bash
-ng serve
+## Core Features
+
+- **Task Capture**: Fast task creation through a dedicated form component
+- **Status-Based Workflow**: Filter tasks by progress tab to focus execution
+- **Inline Actions**: Edit, complete/undo, and delete directly from each card
+- **Header Productivity Timer**: Start/stop/resume/reset flow with icon controls
+- **Lifecycle-Driven UI Feedback**: Toast behavior and cleanup handled via component lifecycle hooks
+- **Dashboard Highlights**: Carousel section for top-level productivity messaging
+
+## Tech Stack
+
+- Angular `21` with standalone components
+- TypeScript
+- HTML + CSS
+- RxJS (Angular runtime dependency)
+
+## Project Structure
+
+```text
+task-manager/
+├─ public/                    static assets served as-is
+├─ src/
+│  ├─ app/
+│  │  ├─ components/          reusable UI blocks
+│  │  │  ├─ addTaskForm/      task creation form (ts/html/css)
+│  │  │  ├─ header/           brand + timer + navigation
+│  │  │  └─ footer/           footer layout/content
+│  │  ├─ pages/               feature views
+│  │  │  ├─ dashboard/        page composition + carousel
+│  │  │  ├─ TaskList/         filters + toast + list rendering
+│  │  │  └─ TaskCard/         single task card actions
+│  │  ├─ app.ts               root component logic
+│  │  ├─ app.html             root template
+│  │  ├─ app.css              root styles
+│  │  ├─ app.config.ts        app-wide providers/config
+│  │  └─ app.routes.ts        route declarations
+│  ├─ main.ts                 Angular bootstrap entry
+│  ├─ index.html              host HTML document
+│  └─ styles.css              global styles
+├─ angular.json               Angular CLI workspace config
+├─ package.json               scripts + dependencies
+├─ tsconfig.json              base TypeScript config
+├─ tsconfig.app.json          app TypeScript config
+└─ README.md                  project documentation
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Getting Started
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1) Install dependencies
 
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 2) Run locally
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+The app runs on `http://localhost:4200/`.
 
-To build the project run:
+## Scripts
 
-```bash
-ng build
-```
+- `npm start` - Run development server (opens browser)
+- `npm run build` - Build for production
+- `npm run watch` - Build in watch mode (development configuration)
+- `npm test` - Run unit tests
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Build Output
 
-## Running unit tests
+Production artifacts are generated in `dist/`.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Notes
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- This project uses Angular standalone component architecture.
+- Current interactions emphasize direct state updates and lifecycle hook cleanup patterns.
