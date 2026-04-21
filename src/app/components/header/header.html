@@ -48,33 +48,43 @@
 
     <nav class="header__nav" [class.is-open]="isMenuOpen" aria-label="Main navigation">
       <a
-        href="#"
+        routerLink="/"
         class="header__link"
-        [class.header__link--active]="activeLink === 0"
-        (click)="handleLinkClick(0)"
+        routerLinkActive="header__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="handleLinkClick()"
         >Dashboard</a
       >
       <a
-        href="#"
+        routerLink="/my-tasks"
         class="header__link"
-        [class.header__link--active]="activeLink === 1"
-        (click)="handleLinkClick(1)"
+        routerLinkActive="header__link--active"
+        (click)="handleLinkClick()"
         >My Tasks</a
       >
-      <a
-        href="#"
-        class="header__link"
-        [class.header__link--active]="activeLink === 2"
-        (click)="handleLinkClick(2)"
-        >Completed</a
-      >
-      <a
-        href="#"
-        class="header__link"
-        [class.header__link--active]="activeLink === 3"
-        (click)="handleLinkClick(3)"
-        >Settings</a
-      >
+
+      <!-- Auth menu -->
+      <div class="header__auth-menu">
+        <button type="button" class="header__auth-trigger" (click)="toggleAuthMenu($event)">
+          {{ authUser() ? 'Profile' : 'Get Started' }}
+          <svg
+            class="header__auth-arrow"
+            [class.header__auth-arrow--open]="isAuthMenuOpen"
+            viewBox="0 0 20 20"
+            aria-hidden="true"
+          >
+            <path d="M5.5 7.5L10 12l4.5-4.5" />
+          </svg>
+        </button>
+        <div class="header__auth-dropdown" [class.is-open]="isAuthMenuOpen">
+          @if (authUser()) {
+            <a routerLink="/profile" class="header__dropdown-link" (click)="handleLinkClick()">Profile</a>
+          } @else {
+            <a routerLink="/login" class="header__dropdown-link" (click)="handleLinkClick()">Login</a>
+            <a routerLink="/signup" class="header__dropdown-link" (click)="handleLinkClick()">Sign Up</a>
+          }
+        </div>
+      </div>
     </nav>
   </header>
 </div>
