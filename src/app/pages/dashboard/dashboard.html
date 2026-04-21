@@ -1,10 +1,5 @@
 <main id="dashboard-page">
   <app-carousel></app-carousel>
   <app-add-task-form (addTask)="onAddTask($event)"></app-add-task-form>
-  <app-task-list
-    [tasks]="tasks"
-    (deleteTask)="onDeleteTask($event)"
-    (updateTask)="onUpdateTask($event)"
-    (completeTask)="onCompleteTask($event)"
-  ></app-task-list>
+  <app-task-list [task]="taskToAdd"></app-task-list>
 </main>
