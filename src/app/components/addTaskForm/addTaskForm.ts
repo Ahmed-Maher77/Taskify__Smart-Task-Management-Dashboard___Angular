@@ -12,7 +12,6 @@ export class AddTaskForm {
 
   onSubmit(e: SubmitEvent) {
     e.preventDefault();
-    // `currentTarget` is the element the listener is attached to (the form).
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
 
@@ -27,6 +26,10 @@ export class AddTaskForm {
       category: formData.get('task-category')?.toString() ?? '',
       dueDate: rawDueDate,
     };
+    // Save to localStorage
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    tasks.unshift(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
     this.addTask.emit(task);
     form.reset();
   }
