@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ITask } from '../../pages/TaskCard/TaskCard';
+import { ITask } from '../TaskCard/TaskCard';
 
 @Component({
   selector: 'app-add-task-form',
@@ -17,12 +17,7 @@ export class AddTaskForm {
     const formData = new FormData(form);
 
     const rawPriority = (formData.get('task-priority')?.toString() ?? 'Medium').toLowerCase();
-    const priority =
-      rawPriority === 'high'
-        ? 'High'
-        : rawPriority === 'low'
-          ? 'Low'
-          : 'Medium';
+    const priority = rawPriority === 'high' ? 'High' : rawPriority === 'low' ? 'Low' : 'Medium';
 
     const rawDueDate = formData.get('task-due-date')?.toString() ?? '';
     const task: ITask = {
