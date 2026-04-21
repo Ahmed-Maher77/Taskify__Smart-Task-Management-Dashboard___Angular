@@ -8,17 +8,23 @@ Taskify helps users organize daily work inside a single dashboard flow:
 - Add new tasks with key details (title, description, category, priority, due date)
 - View tasks by status (`All`, `Done`, `In Progress`)
 - Update, complete, or remove tasks in place
+- Tasks are persisted in your browser using localStorage
+- If no tasks exist, default sample tasks are shown
 - Track session time from the header timer controls
 - Receive contextual tab-switch feedback via toast notifications
+- User authentication: signup, login, profile, and route protection
 
 ## Core Features
 
 - **Task Capture**: Fast task creation through a dedicated form component
 - **Status-Based Workflow**: Filter tasks by progress tab to focus execution
 - **Inline Actions**: Edit, complete/undo, and delete directly from each card
+- **Task Persistence**: All tasks are saved in localStorage for session continuity
+- **Default Tasks**: If no tasks exist, default sample tasks are loaded automatically
 - **Header Productivity Timer**: Start/stop/resume/reset flow with icon controls
 - **Lifecycle-Driven UI Feedback**: Toast behavior and cleanup handled via component lifecycle hooks
 - **Dashboard Highlights**: Carousel section for top-level productivity messaging
+- **Authentication**: Signup, login, and profile management with route guards for protected pages
 
 ## Tech Stack
 
