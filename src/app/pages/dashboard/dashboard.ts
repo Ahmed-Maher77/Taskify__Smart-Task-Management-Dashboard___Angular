@@ -1,20 +1,12 @@
-import { Component } from "@angular/core";
-import { AddTaskForm } from "../../components/addTaskForm/addTaskForm";
-import { TaskList } from "../TaskList/TaskList";
-import { CarouselComponent } from "./carousel.component";
-import type { ITask } from "../TaskCard/TaskCard";
+import { Component } from '@angular/core';
+import { AddTaskForm } from '../../components/addTaskForm/addTaskForm';
+import { CarouselComponent } from './carousel.component';
 
 @Component({
-  selector: "app-dashboard",
+  selector: 'app-dashboard',
   standalone: true,
-  templateUrl: "./dashboard.html",
-  styleUrl: "./dashboard.css",
-  imports: [AddTaskForm, TaskList, CarouselComponent]
+  templateUrl: './dashboard.html',
+  styleUrl: './dashboard.css',
+  imports: [AddTaskForm, CarouselComponent],
 })
-export class Dashboard {
-  taskToAdd: ITask | null = null;
-
-  onAddTask(task: ITask) {
-    this.taskToAdd = { ...task, status: 'in-progress' };
-  }
-}
+export class Dashboard {}
