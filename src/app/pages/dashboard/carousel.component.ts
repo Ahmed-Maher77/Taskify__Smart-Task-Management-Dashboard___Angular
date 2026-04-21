@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
@@ -7,40 +7,56 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrl: './carousel.component.css',
 })
 export class CarouselComponent implements OnInit, OnDestroy {
-  currentIndex = 0;
-  intervalId: any;
+  private readonly totalSlides = 3;
+  currentIndex = signal(0);
+  intervalId: ReturnType<typeof setInterval> | null = null;
 
   ngOnInit() {
     this.startAutoSlide();
   }
 
   ngOnDestroy() {
-    clearInterval(this.intervalId);
+    this.stopAutoSlide();
   }
 
   goTo(index: number) {
-    this.currentIndex = index;
+    this.currentIndex.set(index);
     this.resetAutoSlide();
   }
 
   prev() {
-    this.currentIndex = this.currentIndex === 0 ? 2 : this.currentIndex - 1;
+    const current = this.currentIndex();
+    this.currentIndex.set(current === 0 ? this.totalSlides - 1 : current - 1);
     this.resetAutoSlide();
   }
 
   next() {
-    this.currentIndex = this.currentIndex === 2 ? 0 : this.currentIndex + 1;
+    const current = this.currentIndex();
+    this.currentIndex.set(current === this.totalSlides - 1 ? 0 : current + 1);
     this.resetAutoSlide();
   }
 
   startAutoSlide() {
+    this.stopAutoSlide();
     this.intervalId = setInterval(() => {
-      this.next();
-    }, 2000);
+      this.advanceSlide();
+    }, 3000);
+  }
+
+  stopAutoSlide() {
+    if (this.intervalId !== null) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+  }
+
+  advanceSlide() {
+    const current = this.currentIndex();
+    this.currentIndex.set(current === this.totalSlides - 1 ? 0 : current + 1);
   }
 
   resetAutoSlide() {
-    clearInterval(this.intervalId);
+    this.stopAutoSlide();
     this.startAutoSlide();
   }
 }
