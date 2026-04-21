@@ -1,19 +1,29 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.html',
   styleUrl: './header.css',
+  imports: [RouterLink, RouterLinkActive],
 })
 export class Header implements OnInit, OnDestroy {
   isMenuOpen = false;
-  activeLink: number = 0;
+  isAuthMenuOpen = false;
 
   timer: number = 0;
   timerDisplay: string = '00:00:00';
   timerRunning: boolean = false;
   private timerInterval: ReturnType<typeof setInterval> | null = null;
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
+  ) {}
+
+  get authUser() {
+    return this.authService.authUser;
+  }
 
   ngOnInit(): void {
     this.updateTimerDisplay();
@@ -32,9 +42,14 @@ export class Header implements OnInit, OnDestroy {
     this.isMenuOpen = false;
   }
 
-  handleLinkClick(activeLink: number): void {
-    this.activeLink = activeLink;
+  handleLinkClick(): void {
+    this.isAuthMenuOpen = false;
     this.closeMenu();
+  }
+
+  toggleAuthMenu(event: Event): void {
+    event.stopPropagation();
+    this.isAuthMenuOpen = !this.isAuthMenuOpen;
   }
   // Timer methods
   toggleTimer(): void {
