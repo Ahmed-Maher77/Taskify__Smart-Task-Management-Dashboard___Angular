@@ -48,9 +48,9 @@
       *ngFor="let item of filteredTaskEntries"
       [taskData]="item.task"
       [taskIndex]="item.index"
-      (delete)="deleteTask.emit($event)"
-      (update)="updateTask.emit($event)"
-      (complete)="completeTask.emit($event)"
+      (delete)="onDeleteTask($event)"
+      (update)="onUpdateTask($event)"
+      (complete)="onCompleteTask($event)"
     ></app-task-card>
   </div>
 </section>

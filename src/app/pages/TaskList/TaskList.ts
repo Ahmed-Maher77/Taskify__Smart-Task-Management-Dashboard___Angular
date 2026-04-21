@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { NgFor } from '@angular/common';
 import type { ITask } from '../TaskCard/TaskCard';
 import { TaskCard } from '../TaskCard/TaskCard';
@@ -10,12 +10,35 @@ import { TaskCard } from '../TaskCard/TaskCard';
   styleUrl: './TaskList.css',
   imports: [TaskCard, NgFor],
 })
-export class TaskList implements OnDestroy {
-  @Input() tasks!: ITask[];
+export class TaskList implements OnChanges, OnDestroy {
+  @Input() task: ITask | null = null;
 
-  @Output() deleteTask = new EventEmitter<number>();
-  @Output() updateTask = new EventEmitter<number>();
-  @Output() completeTask = new EventEmitter<number>();
+  tasks: ITask[] = [
+    {
+      title: 'Prepare sprint planning notes',
+      description: "Compile backlog priorities and dependencies before tomorrow's planning meeting.",
+      priority: 'High',
+      category: 'Work',
+      dueDate: 'Due: Apr 16',
+      status: 'in-progress',
+    },
+    {
+      title: 'Update portfolio case study',
+      description: 'Refine project screenshots and add measurable results from the latest release.',
+      priority: 'Medium',
+      category: 'Personal',
+      dueDate: 'Due: Apr 20',
+      status: 'in-progress',
+    },
+    {
+      title: 'Review Angular standalone APIs',
+      description: 'Read migration notes and summarize recommended patterns for upcoming tasks.',
+      priority: 'Low',
+      category: 'Study',
+      dueDate: 'Due: Apr 21',
+      status: 'in-progress',
+    },
+  ];
 
   activeTab: 'all' | 'done' | 'in-progress' = 'all';
   toastMessage = '';
@@ -41,6 +64,12 @@ export class TaskList implements OnDestroy {
       });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    const taskChange = changes['task'];
+    if (!taskChange?.currentValue) return;
+    this.tasks = [{ ...taskChange.currentValue }, ...this.tasks];
+  }
+
   ngOnDestroy(): void {
     this.clearToastTimers();
   }
@@ -49,6 +78,28 @@ export class TaskList implements OnDestroy {
     this.isToastVisible = false;
     this.clearToastTimers();
     this.cdr.detectChanges();
+  }
+
+  onDeleteTask(taskIndex: number): void {
+    this.tasks = this.tasks.filter((_, index) => index !== taskIndex);
+  }
+
+  onUpdateTask(taskIndex: number): void {
+    const currentTask = this.tasks[taskIndex];
+    if (!currentTask) return;
+
+    const updatedTitle = window.prompt('Update task title', currentTask.title);
+    if (!updatedTitle?.trim()) return;
+
+    this.tasks = this.tasks.map((task, index) =>
+      index === taskIndex ? { ...task, title: updatedTitle.trim() } : task
+    );
+  }
+
+  onCompleteTask(taskIndex: number): void {
+    this.tasks = this.tasks.map((task, index) =>
+      index === taskIndex ? { ...task, status: task.status === 'done' ? 'in-progress' : 'done' } : task
+    );
   }
 
   private showToast(message: string): void {
