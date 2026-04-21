@@ -18,35 +18,8 @@ import { TaskCard } from '../TaskCard/TaskCard';
   imports: [TaskCard, NgFor, NgIf],
 })
 export class TaskList implements OnChanges, OnDestroy {
+  @Input() tasks: ITask[] = [];
   @Input() task: ITask | null = null;
-
-  tasks: ITask[] = [
-    {
-      title: 'Prepare sprint planning notes',
-      description:
-        "Compile backlog priorities and dependencies before tomorrow's planning meeting.",
-      priority: 'High',
-      category: 'Work',
-      dueDate: 'Due: Apr 16',
-      status: 'in-progress',
-    },
-    {
-      title: 'Update portfolio case study',
-      description: 'Refine project screenshots and add measurable results from the latest release.',
-      priority: 'Medium',
-      category: 'Personal',
-      dueDate: 'Due: Apr 20',
-      status: 'in-progress',
-    },
-    {
-      title: 'Review Angular standalone APIs',
-      description: 'Read migration notes and summarize recommended patterns for upcoming tasks.',
-      priority: 'Low',
-      category: 'Study',
-      dueDate: 'Due: Apr 21',
-      status: 'in-progress',
-    },
-  ];
 
   activeTab: 'all' | 'done' | 'in-progress' = 'all';
   toastMessage = '';
