@@ -39,8 +39,14 @@
         <p class="auth-form__error">Password is required and must be at least 6 characters.</p>
       }
 
+      @if (errorMessage) {
+        <p class="auth-form__error">{{ errorMessage }}</p>
+      }
+
       <!-- Login button -->
-      <button class="auth-form__button" type="submit" [disabled]="loginForm.invalid">Login</button>
+      <button class="auth-form__button" type="submit" [disabled]="loginForm.invalid || isSubmitting()">
+        {{ isSubmitting() ? 'Logging in...' : 'Login' }}
+      </button>
     </form>
   </div>
 </section>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
@@ -20,11 +20,24 @@ export class Login {
     email: '',
     password: '',
   };
+  errorMessage = '';
+  readonly isSubmitting = signal(false);
 
-  onSubmit(): void {
-    this.authService.saveAuth({
-      email: this.loginData.email,
-    });
-    this.router.navigateByUrl('/profile');
+  async onSubmit(): Promise<void> {
+    this.errorMessage = '';
+    this.isSubmitting.set(true);
+
+    try {
+      const isValidUser = await this.authService.login(this.loginData.email, this.loginData.password);
+
+      if (!isValidUser) {
+        this.errorMessage = 'Invalid email or password.';
+        return;
+      }
+
+      this.router.navigateByUrl('/profile');
+    } finally {
+      queueMicrotask(() => this.isSubmitting.set(false));
+    }
   }
 }
