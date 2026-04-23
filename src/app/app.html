@@ -1,4 +1,13 @@
-<app-header></app-header>
-<app-session-timer></app-session-timer>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+@if (isInitialLoading()) {
+  <div class="initial-loader" role="status" aria-live="polite" aria-label="Loading application">
+    <div class="initial-loader__content">
+      <div class="initial-loader__spinner" aria-hidden="true"></div>
+      <p class="initial-loader__text">Loading workspace...</p>
+    </div>
+  </div>
+} @else {
+  <app-header></app-header>
+  <app-session-timer></app-session-timer>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+}
