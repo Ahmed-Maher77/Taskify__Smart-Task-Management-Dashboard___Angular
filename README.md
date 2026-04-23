@@ -1,6 +1,19 @@
 # Taskify - Smart Task Management Dashboard - Angular
 
 A focused task workspace for capturing tasks, tracking progress through clear status views, and acting quickly via inline edits, completion controls, session timing, and contextual feedback—built with Angular standalone components.
+<hr/>
+
+## Website Preview : 
+🎥 [Watch on LinkedIn](https://www.linkedin.com/posts/ahmed-maher-algohary_angular-frontenddevelopment-webdevelopment-activity-7453190284324085760-7ibl?utm_source=share&utm_medium=member_desktop&rcm=ACoAADxaYJMBq3vC9su8VPtfe-FziMjGaqcNOsA)
+
+<hr/>
+
+## UI Mockup
+
+<img src="https://github.com/user-attachments/assets/d5b604b9-ae55-4a68-8aa3-eba80bea183b" title="ui-mockup-website-preview" width="500" />
+
+<hr/>
+
 
 ## Overview
 
