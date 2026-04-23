@@ -10,8 +10,9 @@ A focused task workspace for capturing tasks, tracking progress through clear st
 
 ## UI Mockup
 
+<a href="https://www.linkedin.com/posts/ahmed-maher-algohary_angular-frontenddevelopment-webdevelopment-activity-7453190284324085760-7ibl?utm_source=share&utm_medium=member_desktop&rcm=ACoAADxaYJMBq3vC9su8VPtfe-FziMjGaqcNOsA">
 <img src="https://github.com/user-attachments/assets/d5b604b9-ae55-4a68-8aa3-eba80bea183b" title="ui-mockup-website-preview" width="500" />
-
+</a>
 <hr/>
 
 
