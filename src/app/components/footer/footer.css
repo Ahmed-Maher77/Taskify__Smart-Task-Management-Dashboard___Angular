@@ -10,8 +10,8 @@
   gap: 1rem;
   align-items: center;
   gap: 1rem;
-	padding-top: 1rem;
-	padding-bottom: 1rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 }
 
 .site-footer__main {
@@ -76,6 +76,26 @@
 @media (max-width: 768px) {
 	.site-footer__content {
 		flex-direction: column;
-		align-items: flex-start;
+		align-items: center;
+		text-align: center;
+	}
+
+	.site-footer__main {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		text-align: center;
+	}
+
+	.site-footer__nav {
+		flex-wrap: wrap;
+		justify-content: center;
+		padding-left: 0;
+	}
+
+	.site-footer__dev {
+		justify-content: center;
+		text-align: center;
 	}
 }
