@@ -32,7 +32,11 @@
         Password is required and must be at least 6 characters.
       </p>
 
-      <button class="auth-form__button" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
+      <p class="auth-form__error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <button class="auth-form__button" type="submit" [disabled]="!signupForm.valid || isSubmitting()">
+        {{ isSubmitting() ? 'Creating account...' : 'Sign Up' }}
+      </button>
     </form>
   </div>
 </section>

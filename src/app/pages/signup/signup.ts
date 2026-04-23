@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,6 +18,8 @@ export class Signup {
   ) {}
 
   isSubmitted = false;
+  errorMessage = '';
+  readonly isSubmitting = signal(false);
 
   signupForm = new FormGroup({
     fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -25,19 +27,29 @@ export class Signup {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.isSubmitted = true;
+    this.errorMessage = '';
 
     if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched();
       return;
     }
 
-    this.authService.saveAuth({
-      fullName: this.signupForm.controls.fullName.value ?? '',
-      email: this.signupForm.controls.email.value ?? '',
-    });
+    this.isSubmitting.set(true);
 
-    this.router.navigateByUrl('/profile');
+    try {
+      await this.authService.signup({
+        fullName: this.signupForm.controls.fullName.value ?? '',
+        email: this.signupForm.controls.email.value ?? '',
+        password: this.signupForm.controls.password.value ?? '',
+      });
+
+      this.router.navigateByUrl('/profile');
+    } catch (error) {
+      this.errorMessage = error instanceof Error ? error.message : 'Unable to sign up now. Please try again.';
+    } finally {
+      queueMicrotask(() => this.isSubmitting.set(false));
+    }
   }
 }
